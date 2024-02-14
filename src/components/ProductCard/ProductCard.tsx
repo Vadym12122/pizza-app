@@ -12,15 +12,15 @@ function ProductCard(props: ProductCardProps) {
                     <span className={styles['currency']}>грн</span>
                 </div>
                 <button className={styles['add-to-cart']}>
-                    <img src="/public/cart-button-icon.svg" alt="Добавити в корзину"/>
+                    <img src="/cart-button-icon.svg" alt="Добавити в корзину"/>
                 </button>
                 <div className={styles['rating']}>
                     {props.rating}&nbsp;
-                    <img src="/public/star-icon.svg" alt="Іконка зірки"/>
+                    <img src="/star-icon.svg" alt="Іконка зірки"/>
                 </div>
                 </div>
                     <div className={styles['footer']}>
-                    <div className={styles['title']}>{props.title}</div>
+                    <div className={styles['title']}>{props.name}</div>
                     <div className={styles['description']}>{props.description}</div>
                 </div>
             </div>
