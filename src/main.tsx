@@ -1,21 +1,29 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Menu } from './pages/Menu/Menu.tsx'
+import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom'
 import { Cart } from './pages/Cart/Cart.tsx'
-import { Error } from './pages/Error/Error.tsx'
+import { Error as ErrorPage } from './pages/Error/Error.tsx'
 import { Layout } from './layout/Menu/Layout.tsx'
 import { Product } from './pages/Product/Product.tsx'
+import { PREFIX } from './helpers/API.ts'
+import axios from 'axios'
+import { AuthLayout } from './layout/Auth/AuthLayout.tsx'
+import { Login } from './pages/Login/Login.tsx'
+import { Register } from './pages/Register/Register.tsx'
+import { RequireAuth } from './helpers/RequireAuth.tsx'
+import { Provider } from 'react-redux'
+
+const Menu = lazy(() => import('./pages/Menu/Menu'));
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <RequireAuth><Layout /></RequireAuth>,
     children: [
       {
         path: '/',
-        element: <Menu />
+        element: <Suspense fallback={<>Загрузка...</>}><Menu /></Suspense>
       },
       {
         path: '/cart',
@@ -23,18 +31,44 @@ const router = createBrowserRouter([
       },
       {
         path: '/product/:id',
-        element: <Product/>
+        element: <Product/>,
+        errorElement: <>Помилка</>,
+        loader: async ({ params }) => {
+          return defer({
+            data: new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  axios.get(`${PREFIX}/productd/${params.id}`).then(data => resolve(data)).catch(e => reject(e))
+                }, 2000)
+              })
+          })
+        }
+      }
+    ]
+  },
+  {
+    path: '/auth',
+    element: <AuthLayout />,
+    children: [
+      {
+        path: 'login',
+        element: <Login />
+      },
+      {
+        path: 'register',
+        element: <Register />
       }
     ]
   },
   {
     path: '*',
-    element: <Error />
+    element: <ErrorPage />
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <Provider store={store}>
       <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 )
