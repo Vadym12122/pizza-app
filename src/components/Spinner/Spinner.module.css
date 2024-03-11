@@ -1,0 +1,32 @@
+body {
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+    align-items: center;
+}
+
+#rotatingText {
+    animation: rotateText 5s linear infinite;
+}
+.rotateleft {
+    animation: rotateLeft 5s linear infinite;
+}
+
+@keyframes rotateText {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes rotateLeft {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

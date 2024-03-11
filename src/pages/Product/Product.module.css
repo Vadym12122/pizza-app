@@ -1,0 +1,57 @@
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    box-shadow: 5px 10px 20px 0px rgba(211, 209, 216, 0.3);
+    background: rgb(255, 255, 255);
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+}
+
+.head-button {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.cart {
+    display: flex;
+    margin-top: 40px;
+    gap: 40px;
+}
+
+.cart-image {
+    width: 320px;
+    height: 165px;
+    border-radius: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating {
+    display: flex;
+    justify-content: space-between;
+}

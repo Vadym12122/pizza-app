@@ -6,6 +6,7 @@ import { Product } from "../../interfaces/product.interface";
 import styles from "../Menu/Menu.module.css";
 import axios, { AxiosError } from "axios";
 import { MenuList } from "./MenuList/MenuList";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 export function Menu() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -55,7 +56,7 @@ export function Menu() {
                 {!isLoading && products.length > 0 && (
                     <MenuList products={products} />
                 )}
-                {isLoading && <>Загрузка продуктів...</>}
+                {isLoading && <Spinner />}
                 {!isLoading && products.length === 0 && (
                     <>Не знайдено страв по вашому запиту...</>
                 )}
